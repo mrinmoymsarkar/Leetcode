@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    let A = nums, B = target;
+     let n = A.length;
+        let low = 0, high = n -1, ans = 0;
+        while( low <= high){
+            mid = Math.floor((low +high)/2)
+            if(A[mid] < A[0]){
+                ans = mid;
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
+
+        if(ans === 0) ans = n
+
+        // console.log('ans',ans)
+
+        function binarySearch(low,high, B){
+            // console.log('low',low)
+            // console.log('high',high)
+           
+            // let low = 0,n = A.length, high = n-1;
+            while(low<= high){
+                let mid = Math.floor((low+high)/2)
+                if(A[mid]===B){
+                    return (mid);
+                }
+                else if(A[mid]< B){
+                    low = mid + 1;
+                }
+                else high = mid - 1;
+                
+            }
+            return -1;
+        }
+        if(B >= A[0]){
+            return binarySearch(0, ans - 1, B)
+        }
+        else{
+            return binarySearch(ans, n - 1, B)
+        }
+	
+};
